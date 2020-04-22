@@ -1,9 +1,83 @@
 {
   "name": "insomnia-plugin-cloudformation-output",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Get CloudFormation output values within insomnia",
   "main": "dist/index.js",
   "repository": "git@github.com:drg-adaptive/insomnia-plugin-cloudformation-output.git",
   "author": "Ben Force",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/github": "^7.0.5",
+    "@semantic-release/npm": "^7.0.5",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "commitizen": "^4.0.4",
+    "cz-conventional-changelog": "^3.1.0",
+    "semantic-release": "^17.0.7",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn build"
+  },
+  "insomnia": {
+    "name": "cfoutput",
+    "description": "Get CloudFormation output values within insomnia"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.661.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogTitle": "# insomnia-plugin-cloudformation-output Change Log",
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "CHANGELOG.md",
+              "label": "Changelog"
+            },
+            {
+              "path": "insomnia-plugin-cloudformation-output.vsix",
+              "label": "VSCode Extension Package"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/npm"
+    ],
+    "verifyConditions": [
+      "@semantic-release/github",
+      "@semantic-release/npm"
+    ],
+    "prepare": [
+      "@semantic-release/npm",
+      "@semantic-release/changelog"
+    ],
+    "publish": [
+      "@semantic-release/npm",
+      {
+        "path": "@semantic-release/github",
+        "assets": "insomnia-plugin-cloudformation-output.vsix"
+      }
+    ]
+  }
 }

@@ -1,0 +1,9 @@
+{
+  "name": "insomnia-plugin-cloudformation-output",
+  "version": "1.0.0",
+  "description": "Get CloudFormation output values within insomnia",
+  "main": "dist/index.js",
+  "repository": "git@github.com:drg-adaptive/insomnia-plugin-cloudformation-output.git",
+  "author": "Ben Force",
+  "license": "MIT"
+}

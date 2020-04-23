@@ -49,12 +49,22 @@ export const templateTags = [
         })
         .promise();
 
-      console.info(
-        `cfoutput found the following information: ${JSON.stringify(
-          stackDescriptions.Stacks
-        )}`
-      );
-      return "Test Value";
+      if (!stackDescriptions?.Stacks)
+        throw new Error(`Error getting data for stack ${StackName}`);
+
+      const resultOutput = stackDescriptions.Stacks.reduce(
+        (outputs: AWS.CloudFormation.Outputs, stack) =>
+          outputs.concat(stack.Outputs),
+        []
+      ).find((output) => output.OutputKey === output);
+
+      if (!resultOutput?.OutputValue) {
+        throw new Error(
+          `Could not find output ${output} on stack ${StackName}`
+        );
+      }
+
+      return resultOutput.OutputValue;
     },
   },
 ] as Array<Insomnia.TemplateTag>;

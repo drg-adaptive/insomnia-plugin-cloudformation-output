@@ -5,6 +5,14 @@
   "main": "dist/index.js",
   "repository": "git@github.com:drg-adaptive/insomnia-plugin-cloudformation-output.git",
   "author": "Ben Force",
+  "keywords": [
+    "cloudformation",
+    "cloudformation-stacks",
+    "insomnia",
+    "insomnia-plugin",
+    "insomnia-plugins",
+    "insomnia-rest"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",

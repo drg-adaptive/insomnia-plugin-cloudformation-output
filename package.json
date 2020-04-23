@@ -47,21 +47,7 @@
           "changelogFile": "CHANGELOG.md"
         }
       ],
-      [
-        "@semantic-release/github",
-        {
-          "assets": [
-            {
-              "path": "CHANGELOG.md",
-              "label": "Changelog"
-            },
-            {
-              "path": "insomnia-plugin-cloudformation-output.vsix",
-              "label": "VSCode Extension Package"
-            }
-          ]
-        }
-      ],
+      "@semantic-release/github",
       "@semantic-release/npm"
     ],
     "verifyConditions": [
@@ -76,7 +62,7 @@
       "@semantic-release/npm",
       {
         "path": "@semantic-release/github",
-        "assets": "insomnia-plugin-cloudformation-output.vsix"
+        "assets": "CHANGELOG.md"
       }
     ]
   }

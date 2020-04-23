@@ -36,6 +36,14 @@ export const templateTags = [
       region: string,
       profile: string
     ): Promise<string> {
+      console.info(
+        `Getting output: ${JSON.stringify({
+          StackName,
+          output,
+          region,
+          profile,
+        })}`
+      );
       let credentials;
 
       if (profile) {

@@ -75,7 +75,7 @@ export const templateTags = [
         (outputs: AWS.CloudFormation.Outputs, stack) =>
           outputs.concat(stack.Outputs),
         []
-      ).find((output) => output.OutputKey == output);
+      ).find((o) => o.OutputKey === output);
 
       if (!resultOutput?.OutputValue) {
         throw new Error(

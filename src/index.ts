@@ -22,9 +22,26 @@ export const templateTags = [
         type: "string",
         defaultValue: "us-east-1",
       },
+      {
+        displayName: "Profile",
+        description: "Name of the AWS CLI Profile to use",
+        type: "string",
+      },
     ],
-    async run(context, StackName, output, region): Promise<string> {
-      const cf = new AWS.CloudFormation({ region: region });
+    async run(
+      context,
+      StackName: string,
+      output: string,
+      region: string,
+      profile: string
+    ): Promise<string> {
+      let credentials;
+
+      if (profile) {
+        credentials = new AWS.SharedIniFileCredentials({ profile });
+      }
+
+      const cf = new AWS.CloudFormation({ region: region, credentials });
       const stackDescriptions = await cf
         .describeStacks({
           StackName,

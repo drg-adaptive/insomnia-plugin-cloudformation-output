@@ -39,10 +39,13 @@ export const templateTags = [
       let credentials;
 
       if (profile) {
+        console.info(`Loading profile "${profile}"`);
         credentials = new AWS.SharedIniFileCredentials({ profile });
       }
 
       const cf = new AWS.CloudFormation({ region: region, credentials });
+
+      console.info(`Getting stack description for ${StackName}`);
       const stackDescriptions = await cf
         .describeStacks({
           StackName,
@@ -52,6 +55,14 @@ export const templateTags = [
       if (!stackDescriptions?.Stacks)
         throw new Error(`Error getting data for stack ${StackName}`);
 
+      console.info(
+        `Got CF Data for stack ${StackName}: ${JSON.stringify(
+          stackDescriptions.Stacks,
+          null,
+          2
+        )}`
+      );
+
       const resultOutput = stackDescriptions.Stacks.reduce(
         (outputs: AWS.CloudFormation.Outputs, stack) =>
           outputs.concat(stack.Outputs),
@@ -60,7 +71,11 @@ export const templateTags = [
 
       if (!resultOutput?.OutputValue) {
         throw new Error(
-          `Could not find output ${output} on stack ${StackName}`
+          `Could not find output ${output} on stack ${StackName}, results: ${JSON.stringify(
+            stackDescriptions.Stacks,
+            null,
+            2
+          )}`
         );
       }
 

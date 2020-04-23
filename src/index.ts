@@ -1,3 +1,4 @@
+process.env.AWS_SDK_LOAD_CONFIG = "1";
 import * as AWS from "aws-sdk";
 
 export const templateTags = [
